@@ -8,7 +8,7 @@ from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.ia_filterdb import Media, get_file_details, unpack_new_file_id
 from database.users_chats_db import db
-from info import CHANNELS, ADMINS, AUTH_CHANNEL, LOG_CHANNEL, PICS, BATCH_FILE_CAPTION, CUSTOM_FILE_CAPTION, PROTECT_CONTENT
+from info import CHANNELS, ADMINS, AUTH_CHANNEL, LOG_CHANNEL, PICS, BATCH_FILE_CAPTION, CUSTOM_FILE_CAPTION, PROTECT_CONTENT, SUPPORT_CHAT
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp
 from database.connections_mdb import active_connection
 import re
@@ -23,16 +23,21 @@ async def start(client, message):
     if message.chat.type in ['group', 'supergroup']:
         buttons = [
             [
-                InlineKeyboardButton('⭕️ Updates ⭕️', url='https://t.me/josprojects')
+                InlineKeyboardButton('🛠️ Help', url=f"https://t.me/{temp.U_NAME}?start=help")
             ],
             [
-                InlineKeyboardButton('🛠️ Help', url=f"https://t.me/{temp.U_NAME}?start=help"),
-                InlineKeyboardButton('Close ✗', callback_data="close_data"),
+                InlineKeyboardButton('⭕️ Updates', url='https://t.me/josprojects'),
+                InlineKeyboardButton('Support ⭕️', url=f'https://t.me/{SUPPORT_CHAT}')
+            ],
+            [
+                InlineKeyboardButton('❌ Close ❌', callback_data="close_data")
             ]
             ]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply(Script.START_TXT.format(message.from_user.mention if message.from_user else message.chat.title, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup)
-        await asyncio.sleep(2) # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
+        await client.send_sticker(sticker='CAACAgIAAxkBAAJ1f2IfBcHk2IJRU8C-WwQ8k5f8OTJrAAKSDwACuSJRSFH5P9qphGStHgQ', reply_markup=reply_markup)
+        await asyncio.sleep(60)
+        await client.delete()
+        await message.delete()
         if not await db.get_chat(message.chat.id):
             total=await client.get_chat_members_count(message.chat.id)
             await client.send_message(LOG_CHANNEL, Script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
