@@ -152,6 +152,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
+                    reply_markup = msg.reply_markup,
                     protect_content=msg.get('protect', False),
                     )
             except FloodWait as e:
@@ -161,6 +162,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
+                    reply_markup = msg.reply_markup,
                     protect_content=msg.get('protect', False),
                     )
             except Exception as e:
@@ -221,6 +223,7 @@ async def start(client, message):
             msg = await client.send_cached_media(
                 chat_id=message.from_user.id,
                 file_id=file_id,
+                reply_markup = msg.reply_markup,
                 protect_content=True if pre == 'filep' else False,
                 )
             filetype = msg.media
