@@ -1129,8 +1129,7 @@ async def manual_filters(client, message, text=False):
                                 reply_to_message_id = reply_id
                             )
                     elif btn == "[]":
-                        await message.reply_cached_media(
-                            group_id,
+                        await client.reply_cached_media(
                             fileid,
                             caption=reply_text.format(
                                 first = message.from_user.first_name,
@@ -1143,11 +1142,12 @@ async def manual_filters(client, message, text=False):
                                 chatname = message.chat.title,
                                 query = name
                             ) or "",
+                            group_id,
                             reply_to_message_id = reply_id
                         )
                     else:
                         button = eval(btn) 
-                        await message.reply_cached_media(
+                        await client.reply_cached_media(
                             fileid,
                             caption=reply_text.format(
                                 first=message.from_user.first_name,
@@ -1160,6 +1160,7 @@ async def manual_filters(client, message, text=False):
                                 chatname = message.chat.title,
                                 query = name
                             ) or "",
+                            group_id,
                             reply_markup=InlineKeyboardMarkup(button),
                             reply_to_message_id = reply_id
                         )
