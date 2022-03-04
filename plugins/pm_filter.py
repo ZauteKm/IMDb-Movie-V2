@@ -1142,7 +1142,6 @@ async def manual_filters(client, message, text=False):
                                 chatname = message.chat.title,
                                 query = name
                             ) or "",
-                            group_id,
                             reply_to_message_id = reply_id
                         )
                     else:
@@ -1160,7 +1159,6 @@ async def manual_filters(client, message, text=False):
                                 chatname = message.chat.title,
                                 query = name
                             ) or "",
-                            group_id,
                             reply_markup=InlineKeyboardMarkup(button),
                             reply_to_message_id = reply_id
                         )
