@@ -2,7 +2,7 @@ import os
 import re
 import asyncio
 from pyrogram import Client, filters
-from info GROUP_PLAY
+from info GROUP_PLAY, ADMINS
 from pyrogram.types import Message
 
 from pytgcalls import StreamType
@@ -86,7 +86,7 @@ async def ytdl(link):
 
 @Client.on_message(filters.command(["play"]))
 async def play(client, m: Message):
- if GROUP_PLAY:
+ if GROUP_PLAY or ADMINS:
     replied = m.reply_to_message
     chat_id = m.chat.id
     if replied:
@@ -202,7 +202,7 @@ async def play(client, m: Message):
 
 @Client.on_message(filters.command(['stream']))
 async def stream(client, m: Message):
- if GROUP_PLAY:
+ if GROUP_PLAY or ADMINS:
    chat_id = m.chat.id
    if len(m.command) < 2:
       await m.reply("`Give A Link/LiveLink/.m3u8 URL/YTLink to Play Audio from 🎶`")
@@ -242,7 +242,7 @@ async def stream(client, m: Message):
 
 @Client.on_message(filters.command(["vplay"]))
 async def vplay(client, m: Message):
- if GROUP_PLAY:
+ if GROUP_PLAY or ADMINS:
     replied = m.reply_to_message
     chat_id = m.chat.id
     m.chat.title
@@ -377,7 +377,7 @@ async def vplay(client, m: Message):
 
 @Client.on_message(filters.command(['vstream']))
 async def vstream(client, m: Message):
- if GROUP_PLAY:
+ if GROUP_PLAY or ADMINS:
    chat_id = m.chat.id
    if len(m.command) < 2:
       await m.reply("`Give A Link/LiveLink/.m3u8 URL/YTLink to Stream from 🎶`")
@@ -439,7 +439,7 @@ async def vstream(client, m: Message):
 
 @Client.on_message(filters.command(["playfrom"]))
 async def playfrom(client, m: Message):
- if GROUP_PLAY:
+ if GROUP_PLAY or ADMINS:
     chat_id = m.chat.id
     if len(m.command) < 2:
         await m.reply(
@@ -493,7 +493,7 @@ async def playfrom(client, m: Message):
 
 @Client.on_message(filters.command(["playlist", "queue"]))
 async def playlist(client, m: Message):
- if GROUP_PLAY:
+ if GROUP_PLAY or ADMINS:
     chat_id = m.chat.id
     if chat_id in QUEUE:
         chat_queue = get_queue(chat_id)
