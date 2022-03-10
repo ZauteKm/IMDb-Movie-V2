@@ -1,5 +1,4 @@
 from plugins.voicechat.queues import QUEUE, get_queue, pop_an_item, clear_queue
-from pytgcalls import PyTgCalls
 from pytgcalls import StreamType, PyTgCalls
 from pyrogram import Client
 from pyrogram.raw.base import Update
@@ -7,6 +6,10 @@ from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.types.stream import StreamAudioEnded  
 from pytgcalls.types.input_stream.quality import HighQualityAudio
 from pytgcalls.types.input_stream.quality import HighQualityVideo, MediumQualityVideo, LowQualityVideo
+from info import SESSION, API_ID, API_HASH
+
+bot = Client(SESSION, API_ID, API_HASH)
+call_py = PyTgCalls(bot)
 
 async def skip_current_song(chat_id):
    if chat_id in QUEUE:
@@ -68,7 +71,7 @@ async def skip_item(chat_id, h):
       return 0
       
 
-@PyTgCalls.on_stream_end()
+@call_py.on_stream_end()
 async def on_end_handler(client, update: Update):
    if isinstance(update, StreamAudioEnded):
       chat_id = update.chat_id
@@ -86,7 +89,7 @@ async def on_end_handler(client, update: Update):
 
 # When someone ends the Voice Chat without stopping the Playback
 
-@PyTgCalls.on_closed_voice_chat()
+@call_py.on_closed_voice_chat()
 async def close_handler(client: PyTgCalls, chat_id: int):
    if chat_id in QUEUE:
       clear_queue(chat_id)
