@@ -23,7 +23,6 @@ python-arq
 ffmpeg-python
 requests
 ytthumb
-py-tgcalls==0.8.2
 yt_dlp
 pillow
 python-dotenv
