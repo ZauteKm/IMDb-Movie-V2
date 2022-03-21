@@ -360,7 +360,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ad_user = query.from_user.id
         if int(ad_user) in ADMINS:
             pass
-    elif int(user) != 0 and query.from_user.id != int(user):
+        elif int(user) != 0 and query.from_user.id != int(user):
             return await query.answer(
                 "All right, but this is not yours.;\nNice Try! But, This Was Not Your Request, Request Yourself;",
                 show_alert=True)
