@@ -354,12 +354,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             alert = alert.replace("\\n", "\n").replace("\\t", "\t")
             await query.answer(alert, show_alert=True)
     if query.data.startswith("file"):
-        ident, file_id = query.data.split("#")
+        ident, req, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
         ad_user = query.from_user.id
         if int(ad_user) in ADMINS:
             pass
-    elif int(file_id) not in [query.from_user.id, 0]:
+    elif int(req) not in [query.from_user.id, 0]:
         return await query.answer(
                 "All right, but this is not yours.;\nNice Try! But, This Was Not Your Request, Request Yourself;",
                 show_alert=True)
