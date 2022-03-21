@@ -356,12 +356,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
     if query.data.startswith("file"):
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
-        user = query.message.reply_to_message.from_user.id
         ad_user = query.from_user.id
         if int(ad_user) in ADMINS:
             pass
-        elif int(user) != 0 and query.from_user.id != int(user):
-            return await query.answer(
+        elif int(file_id) not in [query.from_user.id, 0]:
+        return await query.answer(
                 "All right, but this is not yours.;\nNice Try! But, This Was Not Your Request, Request Yourself;",
                 show_alert=True)
 
@@ -505,7 +504,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ],[
             InlineKeyboardButton('Zombies', callback_data='zombies'),
             InlineKeyboardButton('« Back', callback_data='start'),
-            InlineKeyboardButton('Adult Bot 🔞', url='https://t.me/AdultSearchXBot')
+            InlineKeyboardButton('PSA Bot', url='https://t.me/PSARipsRobot')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
